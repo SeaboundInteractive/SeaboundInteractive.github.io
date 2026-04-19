@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seabound Interactive</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8c96a;
+      --gold-dim: rgba(201, 168, 76, 0.18);
+      --white: #f0ede6;
+      --muted: rgba(240, 237, 230, 0.55);
+      --ocean: rgba(10, 30, 60, 0.72);
+    }
+
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      color: var(--white);
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* ── Background ── */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image: url('background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.54);
+    }
+
+    /* ── Layout ── */
+    .site-wrapper {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Nav / Logo ── */
+    nav {
+      display: flex;
+      align-items: center;
+      padding: 1.4rem 2.2rem;
+      gap: 0.85rem;
+    }
+
+    nav img.logo {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(201,168,76,0.45));
+    }
+
+    nav .brand {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--gold-light);
+      text-transform: uppercase;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 1.5rem 6rem;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.4rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.2s;
+    }
+
+    .hero h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.8rem, 8vw, 6.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      text-shadow: 0 2px 40px rgba(0,0,0,0.6);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.4s;
+      margin-bottom: 1.8rem;
+    }
+
+    .hero h1 span {
+      color: var(--gold-light);
+    }
+
+    .divider {
+      width: 64px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 1.8rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.65s;
+    }
+
+    .hero-desc {
+      max-width: 560px;
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.8s;
+      margin-bottom: 3rem;
+    }
+
+    /* placeholder style so the user knows where to fill in */
+    .hero-desc em {
+      color: rgba(201,168,76,0.5);
+      font-style: normal;
+      border-bottom: 1px dashed rgba(201,168,76,0.35);
+    }
+
+    /* ── CTA Button ── */
+    .cta-wrap {
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 1s;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 1rem 2.6rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #0a1e3c;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 28px rgba(201,168,76,0.3);
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.15);
+      transform: translateX(-110%) skewX(-15deg);
+      transition: transform 0.45s ease;
+    }
+
+    .cta:hover::before { transform: translateX(110%) skewX(-15deg); }
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(201,168,76,0.45);
+    }
+    .cta:active { transform: translateY(0); }
+
+    .cta svg {
+      width: 16px;
+      height: 16px;
+      stroke: #0a1e3c;
+      fill: none;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── Corner decoration ── */
+    .corner-tl, .corner-br {
+      position: fixed;
+      width: 90px;
+      height: 90px;
+      z-index: 1;
+      opacity: 0.3;
+    }
+    .corner-tl { top: 0; left: 0; border-top: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+    .corner-br { bottom: 0; right: 0; border-bottom: 1px solid var(--gold); border-right: 1px solid var(--gold); }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1.2rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: rgba(240,237,230,0.25);
+      text-transform: uppercase;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg"></div>
+
+  <div class="corner-tl"></div>
+  <div class="corner-br"></div>
+
+  <div class="site-wrapper">
+    <nav>
+      <img src="logo.png" alt="Seabound Interactive logo" class="logo" />
+      <span class="brand">Seabound Interactive</span>
+    </nav>
+
+    <main class="hero">
+      <p class="hero-eyebrow">Independent Game Studio</p>
+      <h1>Seabound<br /><span>Interactive</span></h1>
+      <div class="divider"></div>
+      <p class="hero-desc">
+        <em>Add your studio description here — tell visitors who you are, what kinds of games you make, and what they can look forward to finding on this site.</em>
+      </p>
+      <div class="cta-wrap">
+        <a href="games.html" class="cta">
+          Explore Games
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </main>
+
+    <footer>&copy; 2026 Seabound Interactive &mdash; All rights reserved</footer>
+  </div>
+
+</body>
+</html>
