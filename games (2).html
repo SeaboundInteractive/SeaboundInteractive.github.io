@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Games — Seabound Interactive</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --gold:#c9a84c;--gold-light:#f0d060;--gold-dark:#8a6a1a;
+      --white:#f0ede6;--muted:rgba(240,237,230,.5);
+      --bg:#080a0d;--card:#0f1116;--border:rgba(201,168,76,.18);
+    }
+    html,body{min-height:100%;background:var(--bg);color:var(--white);font-family:'Raleway',sans-serif;}
+    body.hov
+    body.hov
+    body.clk
+    body.clk
+    nav{position:relative;z-index:10;display:flex;align-items:center;gap:.85rem;padding:1.3rem 2.2rem;border-bottom:1px solid rgba(201,168,76,.12);}
+    nav img{width:40px;height:40px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(201,168,76,.4));transition:transform .2s,filter .2s;}
+    nav img:hover{transform:scale(1.1) rotate(-3deg);filter:drop-shadow(0 0 18px rgba(240,208,96,.85));}
+    .brand{font-family:'Cinzel',serif;font-size:.9rem;font-weight:700;letter-spacing:.13em;color:var(--gold-light);text-decoration:none;}
+    .back{margin-left:auto;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
+    .back:hover{color:var(--gold-light);}
+
+    .page-header{text-align:center;padding:3.5rem 1.5rem 2.5rem;}
+    .page-header .ey{font-size:.65rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+    .page-header h1{font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;letter-spacing:.06em;}
+    .hrule{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.3rem auto 0;}
+
+    /* Full width list */
+    .game-list{display:flex;flex-direction:column;gap:1.5rem;max-width:900px;margin:0 auto;padding:2rem 2rem 6rem;}
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      display:grid;
+      grid-template-columns:420px 1fr;
+      animation:up .6s ease both .1s;
+      transition:border-color .25s,box-shadow .25s,transform .2s;
+      position:relative;overflow:hidden;
+    }
+    .card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.04) 0%,transparent 60%);pointer-events:none;z-index:0;}
+    .card:hover{border-color:rgba(201,168,76,.5);transform:translateY(-6px);box-shadow:0 20px 56px rgba(0,0,0,.6),0 0 0 1px rgba(201,168,76,.1),0 0 40px rgba(201,168,76,.07);}
+
+    @media(max-width:700px){.card{grid-template-columns:1fr;}}
+
+    .thumb{width:100%;height:100%;min-height:220px;object-fit:cover;display:block;background:#141720;position:relative;z-index:1;}
+    .no-thumb{width:100%;min-height:220px;background:#141720;display:flex;align-items:center;justify-content:center;color:rgba(240,237,230,.12);font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;position:relative;z-index:1;}
+
+    .card-body{padding:2rem 2rem 2rem;display:flex;flex-direction:column;justify-content:center;gap:.8rem;position:relative;z-index:1;}
+    .card-tag{font-size:.62rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);}
+    .card-title{font-family:'Cinzel',serif;font-size:1.6rem;font-weight:700;letter-spacing:.04em;line-height:1.1;}
+    .card-desc{font-size:.88rem;font-weight:300;line-height:1.75;color:var(--muted);}
+
+    .card-footer{margin-top:.6rem;}
+
+    .go{
+      display:inline-flex;align-items:center;gap:.65rem;
+      padding:.75rem 2rem;
+      font-family:'Cinzel',serif;font-size:.78rem;font-weight:900;
+      letter-spacing:.18em;text-transform:uppercase;
+      color:#080a0d;background:var(--gold-light);
+      text-decoration:none;position:relative;
+      border:none;overflow:hidden;
+      box-shadow:0 5px 0 var(--gold-dark),0 8px 20px rgba(201,168,76,.25);
+      transition:box-shadow .07s,transform .07s,background .1s;
+    }
+    .go::before{content:'';position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(255,255,255,.3),transparent);pointer-events:none;}
+    .go::after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.32) 50%,transparent 65%);transform:translateX(-120%);transition:transform .4s ease;pointer-events:none;}
+    .go:hover{background:#f8e070;transform:translateY(-3px);box-shadow:0 8px 0 var(--gold-dark),0 14px 36px rgba(240,208,96,.45),0 0 60px rgba(240,208,96,.12);}
+    .go:hover::after{transform:translateX(120%);}
+    .go:active{transform:translateY(4px);box-shadow:0 1px 0 var(--gold-dark),0 3px 10px rgba(201,168,76,.2);}
+    .go svg{width:14px;height:14px;stroke:#080a0d;fill:none;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s;}
+    .go:hover svg{transform:translateX(5px);}
+
+    @keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  </style>
+</head>
+<body>
+
+  <nav>
+    <img src="logo.png" alt="Logo" />
+    <a href="index.html" class="brand">Seabound Interactive</a>
+    <a href="index.html" class="back">← Home</a>
+  </nav>
+
+  <header class="page-header">
+    <p class="ey">Our Catalogue</p>
+    <h1>Games</h1>
+    <div class="hrule"></div>
+  </header>
+
+  <main class="game-list">
+
+    <div class="card">
+      <img src="game.png" alt="Game thumbnail" class="thumb"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <div class="no-thumb" style="display:none">No Thumbnail</div>
+      <div class="card-body">
+        <p class="card-tag">Seabound Interactive</p>
+        <h2 class="card-title">Game Name</h2>
+        <p class="card-desc">Add a short description of your game here — genre, mood, what makes it fun.</p>
+        <div class="card-footer">
+          <a href="finalvoyage.html" class="go">
+            Go
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+    (function loop(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+    document.querySelectorAll('a,button,img').forEach(el=>{
+      el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+      el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+    });
+    document.addEventListener('mousedown',()=>document.body.classList.add('clk'));
+    document.addEventListener('mouseup',()=>document.body.classList.remove('clk'));
+  </script>
+</body>
+</html>
